@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KoreStack Book — Dashboard</title>
+<meta name="robots" content="noindex"/>
+<link rel="stylesheet" href="admin.css"/>
+<!-- Supabase JS is used ONLY for auth (magic-link login + session). All data
+     access goes through our own /api/admin endpoints with the JWT. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  // Filled in from your Supabase project (Settings → API). The anon key is
+  // safe to ship to browsers; RLS protects the data.
+  window.KB_CONFIG = {
+    SUPABASE_URL: "__SUPABASE_URL__",
+    SUPABASE_ANON_KEY: "__SUPABASE_ANON_KEY__",
+  };
+</script>
+</head>
+<body>
+<div id="app" class="wrap"><p class="muted center" style="padding:60px 0">Loading…</p></div>
+<script src="admin.js"></script>
+</body>
+</html>

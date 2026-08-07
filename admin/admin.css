@@ -1,0 +1,57 @@
+/* KoreStack Book — owner dashboard. Compact, functional, sage-branded. */
+:root {
+  --brand:#5d7d55; --brand-deep:#43613d; --ink:#23301f; --soft:#5a6754;
+  --line:#e3e6da; --bg:#fbfaf5; --card:#fff; --tint:#eef3ea; --danger:#b3402a;
+  --r:12px; --sh:0 8px 28px -14px rgba(35,48,31,.25);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:var(--ink); background:var(--bg); }
+.wrap { max-width:1060px; margin:0 auto; padding:20px clamp(14px,3vw,28px) 60px; }
+.muted { color:var(--soft); } .center { text-align:center; }
+h1 { font-size:1.35rem; } h2 { font-size:1.1rem; margin-bottom:10px; }
+a { color:var(--brand-deep); }
+
+.topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 0 20px; flex-wrap:wrap; }
+.topbar .brand { display:flex; align-items:center; gap:10px; font-weight:700; }
+.topbar .brand svg { border-radius:9px; }
+.tabs { display:flex; gap:4px; flex-wrap:wrap; }
+.tab { border:0; background:none; font:inherit; font-weight:600; color:var(--soft); padding:8px 14px; border-radius:999px; cursor:pointer; }
+.tab.on { background:var(--tint); color:var(--brand-deep); }
+
+.card { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px; margin-bottom:16px; box-shadow:var(--sh); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:760px){ .grid2 { grid-template-columns:1fr; } }
+
+label { display:block; font-size:.83rem; font-weight:600; margin:10px 0 4px; }
+input, select, textarea { width:100%; border:1.5px solid var(--line); border-radius:8px; padding:9px 12px; font:inherit; background:#fff; }
+input:focus, select:focus, textarea:focus { outline:none; border-color:var(--brand); }
+.btn { border:0; border-radius:999px; padding:10px 20px; font:inherit; font-weight:600; cursor:pointer; background:var(--brand); color:#fff; }
+.btn:hover { background:var(--brand-deep); }
+.btn.ghost { background:var(--tint); color:var(--ink); }
+.btn.small { padding:6px 14px; font-size:.85rem; }
+.btn.danger { background:#f7e9e4; color:var(--danger); }
+.btn:disabled { opacity:.5; cursor:default; }
+.rowflex { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.right { margin-left:auto; }
+
+.list { display:grid; gap:8px; }
+.item { display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:10px; padding:10px 14px; background:#fff; flex-wrap:wrap; }
+.item b { margin-right:auto; }
+.item small { color:var(--soft); }
+.pill { font-size:.72rem; font-weight:700; padding:3px 10px; border-radius:999px; background:var(--tint); color:var(--brand-deep); text-transform:uppercase; letter-spacing:.05em; }
+.pill.off { background:#f1f1ee; color:#8a8a84; }
+.pill.cancelled { background:#f7e9e4; color:var(--danger); }
+
+.week { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+.week .col h4 { font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:var(--soft); text-align:center; margin-bottom:6px; }
+.week .evt { background:var(--tint); border-left:3px solid var(--brand); border-radius:6px; padding:5px 7px; font-size:.76rem; margin-bottom:5px; cursor:pointer; }
+.week .evt.cancelled { opacity:.45; border-left-color:var(--danger); text-decoration:line-through; }
+.week .evt b { display:block; }
+@media (max-width:860px){ .week { grid-template-columns:1fr; } .week .col { border-top:1px solid var(--line); padding-top:8px; } }
+
+.code { background:#20281d; color:#cfe0c5; border-radius:10px; padding:14px 16px; font:12.5px/1.6 ui-monospace,Menlo,monospace; overflow-x:auto; user-select:all; }
+.toast { position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:10px 20px; border-radius:999px; font-size:.9rem; opacity:0; transition:opacity .25s; pointer-events:none; z-index:50; }
+.toast.show { opacity:1; }
+.empty { border:1.5px dashed var(--line); border-radius:10px; padding:22px; text-align:center; color:var(--soft); }
+.login { max-width:420px; margin:8vh auto 0; }
+.logo64 { width:56px; height:56px; margin:0 auto 14px; display:block; }

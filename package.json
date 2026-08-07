@@ -1,0 +1,7 @@
+{
+  "name": "korestack-scheduler",
+  "private": true,
+  "version": "0.1.0",
+  "description": "KoreStack Book — multi-tenant appointment scheduling with an embeddable widget",
+  "type": "module"
+}
