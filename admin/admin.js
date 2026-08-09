@@ -8,15 +8,16 @@
   "use strict";
 
   var CFG = window.KB_CONFIG || {};
+  var DEMO = !!CFG.DEMO;   // demo mode: no auth, backed by a mock API (sales demos)
   var app = document.getElementById("app");
-  if (!/^https:\/\//.test(CFG.SUPABASE_URL || "")) {
+  if (!DEMO && !/^https:\/\//.test(CFG.SUPABASE_URL || "")) {
     app.innerHTML = '<div class="card login center"><h2>Almost there</h2>' +
       '<p class="muted" style="margin-top:8px">This deployment isn’t configured yet: fill in ' +
       "<code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> in <code>admin/index.html</code> " +
       "(see the README, step 2).</p></div>";
     return;
   }
-  var sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
+  var sb = DEMO ? null : window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
   var state = { session: null, tenant: null, providers: [], services: [], tab: "schedule", weekStart: startOfWeek(new Date()) };
 
   /* ---------- helpers -------------------------------------------------- */
@@ -97,7 +98,7 @@
     app.innerHTML =
       '<div class="topbar">' +
       '<div class="brand"><svg width="34" height="34" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#5d7d55"/><path fill="#fff" d="M32 12l6.5 17.5L32 26l-6.5 3.5z"/><path fill="#dce8d4" d="M32 52l-6.5-17.5L32 38l6.5-3.5z"/></svg>' +
-      "<span>" + esc(state.tenant.name) + "</span></div>" +
+      "<span>" + esc(state.tenant.name) + "</span>" + (DEMO ? ' <span class="pill">demo</span>' : "") + "</div>" +
       '<div class="tabs">' + TABS.map(function (t) {
         return '<button class="tab ' + (state.tab === t[0] ? "on" : "") + '" data-t="' + t[0] + '">' + t[1] + "</button>";
       }).join("") + "</div>" +
@@ -107,6 +108,7 @@
       b.addEventListener("click", function () { state.tab = b.dataset.t; renderShell(); });
     });
     document.getElementById("signout").addEventListener("click", function () {
+      if (DEMO) return location.reload();
       sb.auth.signOut().then(function () { location.reload(); });
     });
     var view = document.getElementById("view");
@@ -383,6 +385,12 @@
 
   /* ---------- boot ------------------------------------------------------- */
   function boot() {
+    if (DEMO) {
+      state.session = { access_token: "demo" };
+      api("business").then(function (j) { state.tenant = j.tenant; renderShell(); })
+        .catch(function (e) { app.innerHTML = '<div class="card login center"><p>' + esc(e.error || "Demo API not reachable") + "</p></div>"; });
+      return;
+    }
     sb.auth.getSession().then(function (r) {
       state.session = r.data.session;
       if (!state.session) return renderLogin();
@@ -397,10 +405,12 @@
     });
   }
 
-  sb.auth.onAuthStateChange(function (_evt, session) {
-    var had = !!state.session;
-    state.session = session;
-    if (!had && session) boot();
-  });
+  if (!DEMO) {
+    sb.auth.onAuthStateChange(function (_evt, session) {
+      var had = !!state.session;
+      state.session = session;
+      if (!had && session) boot();
+    });
+  }
   boot();
 })();

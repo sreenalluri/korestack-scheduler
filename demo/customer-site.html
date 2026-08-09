@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>True North Chiropractic — Book (demo of an embedded widget)</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:#23301f; background:#fbfaf5; }
+  header { background:#fff; border-bottom:1px solid #e6e8dc; padding:14px 24px; display:flex; align-items:center; gap:12px; }
+  header b { font-size:1.05rem; }
+  header small { color:#75846c; }
+  .hero { max-width:880px; margin:0 auto; padding:48px 24px 8px; text-align:center; }
+  .hero h1 { font-size:clamp(1.6rem,4vw,2.4rem); font-family:Georgia,serif; }
+  .hero p { color:#46543f; margin-top:8px; }
+  .note { max-width:880px; margin:14px auto 0; padding:0 24px; }
+  .note div { background:#eef3ea; border:1px solid #d9e5d1; color:#33492e; border-radius:10px; padding:10px 16px; font-size:.85rem; }
+  main { max-width:880px; margin:0 auto; padding:24px; }
+</style>
+</head>
+<body>
+<header>
+  <svg width="34" height="34" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#5d7d55"/><path fill="#fff" d="M32 12l6.5 17.5L32 26l-6.5 3.5z"/><path fill="#dce8d4" d="M32 52l-6.5-17.5L32 38l6.5-3.5z"/></svg>
+  <div><b>True North Chiropractic</b><br><small>a customer's website — the widget below is embedded with one script tag</small></div>
+</header>
+<section class="hero">
+  <h1>Book your visit</h1>
+  <p>Pick a time that works — we'll confirm by email and text.</p>
+</section>
+<div class="note"><div>
+  <b>Demo:</b> everything below this line is the KoreStack Book widget, injected by
+  <code>&lt;script src=".../embed.js" data-key="pk_…"&gt;</code> — exactly what a customer pastes into their site.
+</div></div>
+<main>
+  <script src="/embed.js" data-key="pk_demo000000000000000000" async></script>
+</main>
+</body>
+</html>
