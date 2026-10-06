@@ -8,10 +8,14 @@
 const URL_ = process.env.SUPABASE_URL;
 const KEY = process.env.SUPABASE_SERVICE_KEY;
 
+// Legacy service_role keys are JWTs and go in both headers; newer
+// `sb_secret_…` keys must only be sent as `apikey` (they aren't JWTs).
+const KEY_IS_JWT = /^eyJ/.test(KEY || "");
+
 function headers(extra = {}) {
   return {
     apikey: KEY,
-    Authorization: `Bearer ${KEY}`,
+    ...(KEY_IS_JWT ? { Authorization: `Bearer ${KEY}` } : {}),
     "Content-Type": "application/json",
     ...extra,
   };
